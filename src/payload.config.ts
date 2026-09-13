@@ -12,6 +12,7 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
+import { FloatingDynamicIsland } from './FloatingDynamicIsland/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -101,7 +102,7 @@ export default buildConfig({
       process.env.VERCEL_PROJECT_PRODUCTION_URL ||
       'http://localhost:3000',
   ].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, FloatingDynamicIsland],
   plugins: [...plugins],
   secret: payloadSecret,
   sharp,

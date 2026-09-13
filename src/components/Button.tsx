@@ -1,10 +1,19 @@
 import type { ButtonProps as UIButtonProps } from '@/components/ui/button'
-import type { Page, Post } from '@/payload-types'
+import type { LegalPage, Page, Post } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
 type ButtonVariant = NonNullable<UIButtonProps['variant']>
+
+type LinkReference =
+  | {
+      relationTo: 'legal-pages' | 'pages' | 'posts'
+      value: LegalPage | Page | Post | string | number
+    }
+  | LegalPage
+  | string
+  | number
 
 type ButtonProps = Omit<UIButtonProps, 'variant' | 'type'> & {
   children?: React.ReactNode
@@ -14,10 +23,7 @@ type ButtonProps = Omit<UIButtonProps, 'variant' | 'type'> & {
   label?: string | null
   newTab?: boolean | null
   appearance?: 'default' | 'outline' | null
-  reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Post | string | number
-  } | null
+  reference?: LinkReference | null
   type?: 'button' | 'submit' | 'reset' | 'custom' | 'reference' | null
   variant?: ButtonVariant | null
 }
@@ -34,10 +40,18 @@ const normalizeCustomHref = (value?: string | null): string | undefined => {
 }
 
 const resolveReferenceHref = (reference: ButtonProps['reference']): string | undefined => {
-  const value = reference?.value
-  if (!reference?.relationTo || value == null) return undefined
+  if (reference == null) return undefined
 
-  const prefix = reference.relationTo === 'pages' ? '' : `/${reference.relationTo}`
+  const isPolymorphicReference = typeof reference === 'object' && 'relationTo' in reference
+  const relationTo = isPolymorphicReference ? reference.relationTo : 'legal-pages'
+  const value = isPolymorphicReference ? reference.value : reference
+
+  const prefix =
+    relationTo === 'pages'
+      ? ''
+      : relationTo === 'legal-pages'
+        ? '/legal'
+        : `/${relationTo}`
 
   if (typeof value === 'object' && 'slug' in value && value.slug) {
     return `${prefix}/${value.slug}`

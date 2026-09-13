@@ -31,7 +31,7 @@
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@payloadcms/admin-bar": "3.86.0",
     "@payloadcms/db-vercel-postgres": "3.86.0",
-    "@payloadcms/email-resend": "^3.87.1",
+    "@payloadcms/email-resend": "3.86.0",
     "@payloadcms/live-preview-react": "3.86.0",
     "@payloadcms/next": "3.86.0",
     "@payloadcms/plugin-cloud-storage": "3.86.0",

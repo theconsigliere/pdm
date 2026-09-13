@@ -1,4 +1,5 @@
 import type { Block, Field } from 'payload'
+import { blockMetadataFields } from '@/blocks/fields'
 
 import {
   FixedToolbarFeature,
@@ -68,6 +69,7 @@ export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
   fields: [
+    ...blockMetadataFields,
     {
       name: 'columns',
       type: 'array',

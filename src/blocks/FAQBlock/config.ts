@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockMetadataFields } from '@/blocks/fields'
 
 import {
   FixedToolbarFeature,
@@ -13,6 +14,7 @@ export const FAQBlock: Block = {
   slug: 'faqBlock',
   interfaceName: 'FAQBlock',
   fields: [
+    ...blockMetadataFields,
     {
       name: 'blockId',
       type: 'text',

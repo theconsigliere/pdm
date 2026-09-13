@@ -1,4 +1,4 @@
-import type { Field, GroupField } from 'payload'
+import type { CollectionSlug, Field, GroupField, RelationshipField } from 'payload'
 
 import deepMerge from '@/utilities/deepMerge'
 
@@ -15,17 +15,25 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
   },
 }
 
-type LinkType = (options?: {
+export type LinkOptions = {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
   overrides?: Partial<GroupField>
-}) => Field
+  relationTo?: CollectionSlug
+}
+
+type LinkType = (options?: LinkOptions) => Field
 
 type LinkValidationContext = {
   siblingData?: Record<string, unknown>
 }
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  appearances,
+  disableLabel = false,
+  overrides = {},
+  relationTo,
+} = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -71,15 +79,15 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     ],
   }
 
-  const linkTypes: Field[] = [
-    {
+  const relationshipField: RelationshipField = relationTo
+    ? {
       name: 'reference',
       type: 'relationship',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
+      relationTo,
       validate: (value: unknown, { siblingData }: LinkValidationContext) => {
         if (siblingData?.type === 'reference' && !value) {
           return 'Document to link to is required when using an internal link.'
@@ -87,7 +95,26 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
 
         return true
       },
-    },
+      }
+    : {
+        name: 'reference',
+        type: 'relationship',
+        admin: {
+          condition: (_, siblingData) => siblingData?.type === 'reference',
+        },
+        label: 'Document to link to',
+        relationTo: ['pages', 'posts'],
+        validate: (value: unknown, { siblingData }: LinkValidationContext) => {
+          if (siblingData?.type === 'reference' && !value) {
+            return 'Document to link to is required when using an internal link.'
+          }
+
+          return true
+        },
+      }
+
+  const linkTypes: Field[] = [
+    relationshipField,
     {
       name: 'url',
       type: 'text',

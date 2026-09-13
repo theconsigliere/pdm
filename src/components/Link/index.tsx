@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
+import type { LegalPage, Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
   children?: React.ReactNode
@@ -9,10 +9,15 @@ type CMSLinkType = {
   classNames?: string | null
   label?: string | null
   newTab?: boolean | null
-  reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Post | string | number
-  } | null
+  reference?:
+    | {
+        relationTo: 'legal-pages' | 'pages' | 'posts'
+        value: LegalPage | Page | Post | string | number
+      }
+    | LegalPage
+    | string
+    | number
+    | null
   type?: 'custom' | 'reference' | null
   url?: string | null
 }

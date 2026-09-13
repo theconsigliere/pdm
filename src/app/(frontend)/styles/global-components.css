@@ -166,21 +166,6 @@ section {
 }
 
 
-.pd__header-nav {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-
-
-.pd__header-links {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
 .pd__header-logo {
     width: min(100%, 15rem);
     height: auto;
@@ -208,10 +193,6 @@ section {
 .pd__header-logo-image,
 .pd__header-logo-fallback {
 
-}
-
-.pd__header-floating-naved {
-    display: none;
 }
 
 /* Header */
@@ -400,6 +381,5 @@ section {
 }
 
 /* Footer */
-
 
 

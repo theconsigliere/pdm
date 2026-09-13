@@ -10,6 +10,7 @@ import React from 'react'
 import { AdminBar } from '@/components/AdminBar'
 import { CookieConsentBanner } from '@/components/CookieConsentBanner'
 import { Footer } from '@/Footer/Component'
+import { FloatingDynamicIsland } from '@/FloatingDynamicIsland/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -78,9 +79,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               preview: isEnabled,
             }}
           />
-
           <Header />
           {children}
+          <FloatingDynamicIsland />
           <Footer />
           <CookieConsentBanner />
         </Providers>

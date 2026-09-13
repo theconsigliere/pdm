@@ -49,7 +49,14 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <section className="" data-block={block.blockName} id={blockId} key={index}>
+                <section
+                  className=""
+                  data-block={block.blockName}
+                  data-block-title={block.blockTitle || undefined}
+                  data-block-description={block.blockDescription || undefined}
+                  id={blockId}
+                  key={index}
+                >
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </section>

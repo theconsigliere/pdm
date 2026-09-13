@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockMetadataFields } from '@/blocks/fields'
 
 import {
   FixedToolbarFeature,
@@ -9,6 +10,7 @@ import {
 export const Banner: Block = {
   slug: 'banner',
   fields: [
+    ...blockMetadataFields,
     {
       name: 'style',
       type: 'select',

@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockMetadataFields } from '@/blocks/fields'
 
 import {
   FixedToolbarFeature,
@@ -11,6 +12,7 @@ export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
   fields: [
+    ...blockMetadataFields,
     {
       name: 'introContent',
       type: 'richText',

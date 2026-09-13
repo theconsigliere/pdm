@@ -114,10 +114,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'floating-dynamic-island': FloatingDynamicIsland;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'floating-dynamic-island': FloatingDynamicIslandSelect<false> | FloatingDynamicIslandSelect<true>;
   };
   locale: null;
   widgets: {
@@ -348,6 +350,14 @@ export interface FolderInterface {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   richText?: {
     root: {
       type: string;
@@ -496,6 +506,14 @@ export interface User {
  * via the `definition` "ContactSectionBlock".
  */
 export interface ContactSectionBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   contactInfo?:
     | {
@@ -716,6 +734,14 @@ export interface Form {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -762,6 +788,14 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
@@ -772,6 +806,14 @@ export interface MediaBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   introContent?: {
     root: {
       type: string;
@@ -806,6 +848,14 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -832,6 +882,14 @@ export interface FormBlock {
  * via the `definition` "IntroductionBlock".
  */
 export interface IntroductionBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   trainingContent?:
@@ -886,6 +944,14 @@ export interface IntroductionBlock {
  * via the `definition` "FullWidthImageBlock".
  */
 export interface FullWidthImageBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   logo?: (number | null) | Media;
@@ -938,6 +1004,14 @@ export interface FullWidthImageBlock {
  * via the `definition` "BreakdownBlock".
  */
 export interface BreakdownBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   logo?: (number | null) | Media;
@@ -992,6 +1066,14 @@ export interface BreakdownBlock {
  * via the `definition` "TextFeatureBlock".
  */
 export interface TextFeatureBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   logo?: (number | null) | Media;
@@ -1050,6 +1132,14 @@ export interface TextFeatureBlock {
  * via the `definition` "SignupBlock".
  */
 export interface SignupBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   title?: string | null;
@@ -1095,6 +1185,14 @@ export interface SignupBlock {
  * via the `definition` "FAQBlock".
  */
 export interface FAQBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   blockId: string;
   subHeadline?: string | null;
   title?: string | null;
@@ -1526,6 +1624,8 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   richText?: T;
   links?:
     | T
@@ -1550,6 +1650,8 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContactSectionBlock_select".
  */
 export interface ContactSectionBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   contactInfo?:
     | T
@@ -1580,6 +1682,8 @@ export interface ContactSectionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   columns?:
     | T
     | {
@@ -1605,6 +1709,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   media?: T;
   id?: T;
   blockName?: T;
@@ -1614,6 +1720,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
@@ -1628,6 +1736,8 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   form?: T;
   enableIntro?: T;
   introContent?: T;
@@ -1639,6 +1749,8 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "IntroductionBlock_select".
  */
 export interface IntroductionBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   trainingContent?:
@@ -1671,6 +1783,8 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
  * via the `definition` "FullWidthImageBlock_select".
  */
 export interface FullWidthImageBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   logo?: T;
@@ -1696,6 +1810,8 @@ export interface FullWidthImageBlockSelect<T extends boolean = true> {
  * via the `definition` "BreakdownBlock_select".
  */
 export interface BreakdownBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   logo?: T;
@@ -1731,6 +1847,8 @@ export interface BreakdownBlockSelect<T extends boolean = true> {
  * via the `definition` "TextFeatureBlock_select".
  */
 export interface TextFeatureBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   logo?: T;
@@ -1765,6 +1883,8 @@ export interface TextFeatureBlockSelect<T extends boolean = true> {
  * via the `definition` "SignupBlock_select".
  */
 export interface SignupBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   title?: T;
@@ -1789,6 +1909,8 @@ export interface SignupBlockSelect<T extends boolean = true> {
  * via the `definition` "FAQBlock_select".
  */
 export interface FAQBlockSelect<T extends boolean = true> {
+  blockTitle?: T;
+  blockDescription?: T;
   blockId?: T;
   subHeadline?: T;
   title?: T;
@@ -2295,84 +2417,6 @@ export interface Header {
     url?: string | null;
     label: string;
   };
-  floatingNavigation: {
-    closed: {
-      logo?: (number | null) | Media;
-      link: {
-        type?: ('reference' | 'custom') | null;
-        newTab?: boolean | null;
-        reference?:
-          | ({
-              relationTo: 'pages';
-              value: number | Page;
-            } | null)
-          | ({
-              relationTo: 'posts';
-              value: number | Post;
-            } | null);
-        url?: string | null;
-        label: string;
-      };
-      content?: {
-        root: {
-          type: string;
-          children: {
-            type: any;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      } | null;
-    };
-    open?: {
-      logo?: (number | null) | Media;
-      navItems?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: number | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: number | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-            };
-            id?: string | null;
-          }[]
-        | null;
-      socialLinks?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: number | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: number | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2427,6 +2471,120 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floating-dynamic-island".
+ */
+export interface FloatingDynamicIsland {
+  id: number;
+  logos?: {
+    defaultLogo?: (number | null) | Media;
+    extendedLogo?: (number | null) | Media;
+    logoLink?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+    };
+  };
+  /**
+   * Update button link that is visible when floating island is open.
+   */
+  joinUs?: {
+    label?: string | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+    };
+  };
+  /**
+   * Page sections are pulled through dynamically from the page blocks on the current page, to update go to selected page and edit block title & block description
+   */
+  sections?: {
+    label?: string | null;
+  };
+  pl?: {
+    pageLinksLabel?: string | null;
+    pageLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  ll?: {
+    legalLinksLabel?: string | null;
+    legalLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?: (number | null) | LegalPage;
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  sl?: {
+    socialLinksLabel?: string | null;
+    socialLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2439,58 +2597,6 @@ export interface HeaderSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
-      };
-  floatingNavigation?:
-    | T
-    | {
-        closed?:
-          | T
-          | {
-              logo?: T;
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                  };
-              content?: T;
-            };
-        open?:
-          | T
-          | {
-              logo?: T;
-              navItems?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                        };
-                    id?: T;
-                  };
-              socialLinks?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                        };
-                    id?: T;
-                  };
-            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2537,6 +2643,104 @@ export interface FooterSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floating-dynamic-island_select".
+ */
+export interface FloatingDynamicIslandSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        defaultLogo?: T;
+        extendedLogo?: T;
+        logoLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+      };
+  joinUs?:
+    | T
+    | {
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+      };
+  sections?:
+    | T
+    | {
+        label?: T;
+      };
+  pl?:
+    | T
+    | {
+        pageLinksLabel?: T;
+        pageLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  ll?:
+    | T
+    | {
+        legalLinksLabel?: T;
+        legalLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  sl?:
+    | T
+    | {
+        socialLinksLabel?: T;
+        socialLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
@@ -2576,6 +2780,14 @@ export interface TaskSchedulePublish {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   style: 'info' | 'warning' | 'error' | 'success';
   content: {
     root: {
@@ -2601,6 +2813,14 @@ export interface BannerBlock {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
+  /**
+   * Used for the block title data attribute.
+   */
+  blockTitle: string;
+  /**
+   * Used for the block description data attribute.
+   */
+  blockDescription: string;
   language?: ('typescript' | 'javascript' | 'css') | null;
   code: string;
   id?: string | null;
