@@ -240,8 +240,8 @@ html[data-theme='light'] {
   strong {
     	letter-spacing: 0.125rem;
       font-weight: 200;
-    text-transform: uppercase;
-    font-family: var(--font-mono);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -251,11 +251,7 @@ html[data-theme='light'] {
   span {}
 }
 
-
   svg {
-      width: 100% !important;
-      height: auto !important;
+      width: 100%;
+      height: auto;
   }
-
-
-

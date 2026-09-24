@@ -1,0 +1,404 @@
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.mi_wrap {
+  --mi-fg: rgba(255, 250, 242, 0.92);
+  --mi-fg-soft: rgba(255, 255, 255, 0.72);
+  --mi-fg-dim: rgba(255, 255, 255, 0.48);
+  --mi-glass: rgba(16, 16, 16, 0.55);
+  --mi-hair: rgba(255, 255, 255, 0.16);
+  --mi-margin: 40px;
+  --mi-sans: 'Switzer', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  position: relative;
+  width: 100%;
+  background-color: #101010;
+  font-family: var(--mi-sans);
+  color: var(--mi-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Sticky dock: zero-height, rides along the whole component so the pill
+   stays top-center through every section (no fixed positioning needed). --- */
+.mi_dock {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 0;
+}
+
+/* --- The pill: JS drives width/height/border-radius; these are rest-state
+   fallbacks only, matching the idle geometry (see morphing-island.js STATE_GEO). --- */
+.mi_pill {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 176px;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--mi-glass);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+  backdrop-filter: blur(30px) saturate(1.4);
+  box-sizing: border-box;
+}
+
+/* --- Content views: each a fixed-size box, centered in the pill and clipped
+   by it while the pill is smaller. JS sets width/height per state so this
+   stays a single source of truth (mirrors morphing-pill-menu's panel). ---- */
+/* Centred with inset + margin, NOT a translate: GSAP's y/scale tweens on
+   the views would replace a CSS translate and throw them off-centre. */
+.mi_view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  color: inherit;
+  font: inherit;
+}
+
+/* idle: a button spanning the whole pill */
+.mi_view_idle {
+  width: 176px;
+  height: 40px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 0 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.mi_view_idle:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: -2px;
+  border-radius: 20px;
+}
+
+.mi_idle_index,
+.mi_idle_name {
+  position: relative;
+  display: inline-block;
+  height: 1.2em;
+  line-height: 1.2;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.mi_idle_index {
+  width: 1.7em;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mi-fg-dim);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  flex-shrink: 0;
+}
+
+.mi_idle_name {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Odometer strip: every section's label stacked in one column, JS tweens
+   the column to -index. The hidden in-flow glyph keeps the mask's line box
+   (and the dot's baseline) intact. */
+.mi_idle_index::before,
+.mi_idle_name::before {
+  content: "0";
+  visibility: hidden;
+}
+
+.mi_idle_col {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.mi_idle_cell {
+  display: block;
+  height: 1.2em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.mi_idle_dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--mi-fg);
+  flex-shrink: 0;
+}
+
+/* list */
+.mi_view_list {
+  width: 248px;
+  height: 180px;
+  flex-direction: column;
+  padding: 10px 8px 6px;
+}
+
+.mi_list_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 10px 0 12px;
+}
+
+.mi_list_title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--mi-fg-dim);
+}
+
+.mi_row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--mi-fg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: background-color 0.2s cubic-bezier(0.3, 0.9, 0.1, 1);
+}
+
+.mi_row:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mi_row:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: -2px;
+}
+
+.mi_row_index {
+  font-size: 13px;
+  color: var(--mi-fg-dim);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.mi_row_name {
+  flex: 1;
+}
+
+/* one dot for the whole list - JS slides it to the current row */
+.mi_list_mark {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--mi-fg);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* detail */
+.mi_view_detail {
+  width: 340px;
+  height: 184px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px 14px;
+}
+
+.mi_detail_head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.mi_detail_index {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mi-fg-dim);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.mi_detail_name {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.mi_detail_copy {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 380;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--mi-fg-soft);
+}
+
+.mi_detail_actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--mi-hair);
+}
+
+.mi_text_btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: var(--mi-fg-dim);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: color 0.2s cubic-bezier(0.3, 0.9, 0.1, 1);
+}
+
+.mi_text_btn:hover {
+  color: var(--mi-fg);
+}
+
+.mi_text_btn_primary {
+  color: var(--mi-fg);
+}
+
+.mi_text_btn:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Sections: one full-height stage each, graded photo + title. --------- */
+.mi_section {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.mi_section_img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.72) saturate(0.92);
+}
+
+.mi_section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(16, 16, 16, 0.55) 0%, rgba(16, 16, 16, 0) 45%);
+  pointer-events: none;
+}
+
+.mi_section_index {
+  position: absolute;
+  top: var(--mi-margin);
+  left: var(--mi-margin);
+  z-index: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mi-fg-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.mi_section_title {
+  position: absolute;
+  left: var(--mi-margin);
+  bottom: var(--mi-margin);
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(56px, 8vw, 120px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--mi-fg);
+}
+
+/* --- Screen-reader announcer ------------------------------------------- */
+.mi_live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+@media (max-width: 479px) {
+  .mi_wrap {
+    --mi-margin: 20px;
+  }
+
+  .mi_pill {
+    top: 16px;
+    width: 160px;
+    height: 38px;
+    border-radius: 19px;
+  }
+
+  .mi_view_idle {
+    width: 160px;
+    height: 38px;
+  }
+
+  .mi_view_list {
+    width: 232px;
+    height: 176px;
+  }
+
+  .mi_view_detail {
+    width: 300px;
+    height: 200px;
+    padding: 16px 18px 14px;
+  }
+}

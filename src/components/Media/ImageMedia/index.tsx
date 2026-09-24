@@ -62,6 +62,7 @@ function InlineSVG({
         const attrs: Record<string, string> = {}
 
         for (const attr of Array.from(svg.attributes)) {
+          if (attr.name === 'style') continue
           attrs[attr.name] = attr.value
         }
 
@@ -91,7 +92,6 @@ function InlineSVG({
       {...attrs}
       className={className}
       role="img"
-      style={{ display: 'inline-block', height, width }}
       dangerouslySetInnerHTML={{ __html: innerHTML }}
     />
   )
