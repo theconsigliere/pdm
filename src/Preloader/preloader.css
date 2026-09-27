@@ -1,0 +1,13 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--p-black, #111);
+  color: var(--p-white, #fff);
+}
+
+.preloader__label {
+  font-size: 0.875rem;
+}

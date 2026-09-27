@@ -55,7 +55,11 @@ export async function Footer() {
             <nav className="pd__footer-nav">
               {navItems.map(({ link }, i) => {
                 return (
-                  <Button className="pd__footer-link mono p-small btn--primary" key={i} {...link} />
+                  <Button
+                    className="pd__footer-link-text mono p-small btn--primary"
+                    key={i}
+                    {...link}
+                  />
                 )
               })}
             </nav>

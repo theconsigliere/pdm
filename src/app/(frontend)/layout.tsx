@@ -12,8 +12,11 @@ import { CookieConsentBanner } from '@/components/CookieConsentBanner'
 import { Footer } from '@/Footer/Component'
 import { FloatingDynamicIsland } from '@/FloatingDynamicIsland/Component'
 import { Header } from '@/Header/Component'
+import { RouteTransition } from '@/PageTransition/RouteTransition'
+import { Preloader } from '@/Preloader/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { normalizeSiteURL } from '@/utilities/getURL'
 import { draftMode } from 'next/headers'
@@ -29,6 +32,7 @@ const instrumentSerif = Instrument_Serif({
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const island = await getCachedGlobal('floating-dynamic-island', 1)()
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
   return (
@@ -74,16 +78,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-          <Header />
-          {children}
-          <FloatingDynamicIsland />
-          <Footer />
-          <CookieConsentBanner />
+          <Preloader>
+            <RouteTransition />
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
+            <Header />
+            {children}
+            <FloatingDynamicIsland island={island} />
+            <Footer />
+            <CookieConsentBanner />
+          </Preloader>
         </Providers>
       </body>
     </html>

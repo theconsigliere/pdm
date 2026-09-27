@@ -37,14 +37,13 @@ export const ContactSectionBlock: React.FC<ContactSectionBlockProps> = ({
             if (!item?.content) return null
 
             return (
-              <div className="contactSection__item">
+              <div key={item.id ?? index} className="contactSection__item">
                 <div className="contactSection__item-index mono">0{index + 1}</div>
                 <div className="contactSection__item-text">
                   <RichText
                     className="contactSection__info-item"
                     data={item.content}
                     enableGutter={false}
-                    key={item.id || index}
                   />
                 </div>
               </div>

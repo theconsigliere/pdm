@@ -22,6 +22,7 @@ type ButtonProps = Omit<UIButtonProps, 'variant' | 'type'> & {
   url?: string | null
   label?: string | null
   newTab?: boolean | null
+  unstyled?: boolean
   appearance?: 'default' | 'outline' | null
   reference?: LinkReference | null
   type?: 'button' | 'submit' | 'reset' | 'custom' | 'reference' | null
@@ -74,6 +75,7 @@ export const Button: React.FC<ButtonProps> = ({
   reference,
   type,
   appearance,
+  unstyled = false,
   variant,
   ...props
 }) => {
@@ -90,14 +92,14 @@ export const Button: React.FC<ButtonProps> = ({
     }
 
   const combinedClassName = cn(
-    'btn',
-    effectiveVariant === 'outline' && 'btn--outline',
+    !unstyled && 'btn',
+    !unstyled && effectiveVariant === 'outline' && 'btn--outline',
     className,
     classNames,
   )
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
-  const content = label && (
+  const content = unstyled ? label : label && (
     <span className="btn__label--container" data-slot="button-label">
       <span className="btn__label btn__label--first">{label}</span>
       <span className="btn__label btn__label--second">{label}</span>

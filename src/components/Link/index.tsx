@@ -4,9 +4,11 @@ import React from 'react'
 import type { LegalPage, Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
+  unstyled?: boolean
   children?: React.ReactNode
   className?: string
   classNames?: string | null
+  href?: string | null
   label?: string | null
   newTab?: boolean | null
   reference?:
@@ -23,13 +25,14 @@ type CMSLinkType = {
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
-  const { children, className, classNames, label, newTab, reference, type, url } = props
+  const { children, className, classNames, href, label, newTab, reference, type, url, unstyled } = props
 
   return (
     <Button
+      unstyled={unstyled}
       className={className}
       classNames={classNames}
-      href={url || undefined}
+      href={href ?? url ?? undefined}
       label={label}
       newTab={newTab}
       reference={reference}

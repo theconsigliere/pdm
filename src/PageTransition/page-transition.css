@@ -1,0 +1,9 @@
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--p-black, #111);
+  transform: scaleY(0);
+  visibility: hidden;
+  pointer-events: none;
+}
